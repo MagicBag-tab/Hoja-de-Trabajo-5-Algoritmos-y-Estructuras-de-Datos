@@ -25,7 +25,7 @@ def proceso(env, name, RAM, CPU, data):
         while instruction > 0:  # Verifica que haya más de una instrucción en el proceso para que la CPU pueda avanzar con la simulación.
             with CPU.request() as CPURequest:
                 yield CPURequest
-                realized = min(6, instruction)  # Definir los 3 ciclos que la CPU puede procesar.
+                realized = min(3, instruction)  # Definir los 3 ciclos que la CPU puede procesar.
                 yield env.timeout(1)
                 instruction -= realized
                 print(f"{env.now}: En el proceso {name} se han logrado ejecutar {realized} instrucciones. Por lo tanto, quedan {instruction} instrucciones.")
@@ -50,7 +50,7 @@ def RAM_simulation(env, process, data):
     # Asignarle a la RAM 100 unidades libres:
     RAM = simpy.Container(env, init=100, capacity=100) 
     # Asignarle al CPU como evaluador de un solo proceso:
-    CPU = simpy.Resource(env, capacity=1)
+    CPU = simpy.Resource(env, capacity=2)
 
     for i in range(process):
         env.process(proceso(env, f"No.{i + 1}", RAM, CPU, data))
@@ -73,7 +73,7 @@ def calculator():
     dev = np.std(df["Tiempo Ejecutado en segundos"])
     print(f"Desviación estándar: {dev}")
 
-    df.to_csv("SimulaciónG4P200.csv", index=False)
+    df.to_csv("SimulaciónG5P200.csv", index=False)
     df.to_excel("Resultados.xlsx", index=False)
     print("Los datos se han guardado.")
 
