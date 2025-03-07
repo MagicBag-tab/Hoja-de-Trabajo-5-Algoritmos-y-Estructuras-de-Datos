@@ -1,3 +1,4 @@
+
 import simpy
 import random
 import numpy as np
@@ -37,3 +38,5 @@ def proceso(env, name, RAM, CPU, data):
     print(f"{env.now}: El proceso {name} ha sido completado. Se han liberado {memory} unidades de RAM.")
     complete = env.now
     data.append([name, arrivalTime, complete, complete - arrivalTime])
+=======
+
