@@ -60,7 +60,7 @@ def RAM_simulation(env, process, data):
 def calculator():
     env = simpy.Environment()
     # Definir el número de procesos:
-    process = 25
+    process = 200
     data = []  # Lista para Excel
 
     env.process(RAM_simulation(env, process, data))
@@ -73,7 +73,7 @@ def calculator():
     dev = np.std(df["Tiempo Ejecutado en segundos"])
     print(f"Desviación estándar: {dev}")
 
-    df.to_csv("SimulaciónG1P25.csv", index=False)
+    df.to_csv("SimulaciónG1P200.csv", index=False)
     df.to_excel("Resultados.xlsx", index=False)
     print("Los datos se han guardado.")
 
