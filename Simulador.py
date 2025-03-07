@@ -4,6 +4,9 @@ import random
 import numpy as np
 import pandas as pd
 
+random.seed(7)
+np.random.seed(7)
+
 def proceso(env, name, RAM, CPU, data):
     ## Asignación de espacio de memoria, de 1 a 10 unidades:
     memory = random.randint(1, 10)
@@ -70,7 +73,7 @@ def calculator():
     dev = np.std(df["Tiempo Ejecutado en segundos"])
     print(f"Desviación estándar: {dev}")
 
-    df.to_csv("Simulación.csv", index=False)
+    df.to_csv("SimulaciónG1P25.csv", index=False)
     df.to_excel("Resultados.xlsx", index=False)
     print("Los datos se han guardado.")
 
