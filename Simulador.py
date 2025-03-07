@@ -53,3 +53,25 @@ def RAM_simulation(env, process, data):
         env.process(proceso(env, f"No.{i + 1}", RAM, CPU, data))
         # Asignación de intervalos de inicio o llegada:
         yield env.timeout(random.expovariate(1.0 / 10))
+        
+def calculator():
+    env = simpy.Environment()
+    # Definir el número de procesos:
+    process = 25
+    data = []  # Lista para Excel
+
+    env.process(RAM_simulation(env, process, data))
+    env.run()
+
+    # PANDAS:
+    df = pd.DataFrame(data, columns=["Proceso", "Tiempo de Llegada en segundos", "Tiempo Finalizado en segundos", "Tiempo Ejecutado en segundos"])
+
+    # Desviación estándar:
+    dev = np.std(df["Tiempo Ejecutado en segundos"])
+    print(f"Desviación estándar: {dev}")
+
+    df.to_csv("Simulación.csv", index=False)
+    df.to_excel("Resultados.xlsx", index=False)
+    print("Los datos se han guardado.")
+
+calculator()
