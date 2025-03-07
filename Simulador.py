@@ -38,5 +38,18 @@ def proceso(env, name, RAM, CPU, data):
     print(f"{env.now}: El proceso {name} ha sido completado. Se han liberado {memory} unidades de RAM.")
     complete = env.now
     data.append([name, arrivalTime, complete, complete - arrivalTime])
-=======
 
+    """
+    Función donde se le asigan a la RAM y al CPU sus valores y ver como
+    es que se desencuelven los procesos según sus capacidades.
+    """
+def RAM_simulation(env, process, data):
+    # Asignarle a la RAM 100 unidades libres:
+    RAM = simpy.Container(env, init=100, capacity=100) 
+    # Asignarle al CPU como evaluador de un solo proceso:
+    CPU = simpy.Resource(env, capacity=1)
+
+    for i in range(process):
+        env.process(proceso(env, f"No.{i + 1}", RAM, CPU, data))
+        # Asignación de intervalos de inicio o llegada:
+        yield env.timeout(random.expovariate(1.0 / 10))
